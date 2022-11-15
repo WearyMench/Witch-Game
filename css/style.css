@@ -1,0 +1,158 @@
+body {
+    background-color: rgb(74, 132, 132);
+}
+
+h1 {
+    text-align: center;
+    text-shadow: 0 0 1px black;
+}
+
+.grid {
+    background-image: url(../img/back.jpg);
+    background-size: cover;
+    width: 700px;
+    height: 500px;
+    margin: auto;
+    position: relative;
+    box-shadow: 0 0 5px rgb(105, 62, 117);
+    /* overflow: hidden; */
+}
+
+.player {
+    width: 32px;
+    height: 48px;
+    transform: scale(2);
+    image-rendering: pixelated;
+    background-image: url(../img/B_witch_idle.png);
+    background-position: 0 0px;
+    position: absolute;
+    animation: move 1s steps(6) infinite;
+}
+
+@keyframes move {
+    to {
+        background-position: 0 288px;
+    }
+}
+
+.player-left {
+    scale: 2;
+    transform: scaleX(-1);
+}
+
+.run {
+    background-image: url(../img/B_witch_run.png);
+    animation: run 1s steps(8) infinite;
+}
+
+.run-left {
+    scale: 2;
+    transform: scaleX(-1);
+}
+
+@keyframes run {
+    to {
+        background-position: 0 384px;
+    }
+}
+
+.small {
+    width: 10px;
+    height: 10px;
+    background-color: yellow;
+    box-shadow: 0px 0px 5px rgb(240, 240, 78),
+        0px 0px 7px rgb(237, 237, 155),
+        0px 0px 10px rgb(239, 239, 200);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.medium {
+    width: 20px;
+    height: 20px;
+    background-color: rgb(94, 255, 0);
+    box-shadow: 0px 0px 5px rgb(126, 247, 56),
+        0px 0px 7px rgb(174, 248, 131),
+        0px 0px 10px rgb(210, 248, 188);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.big {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(255, 51, 0);
+    box-shadow: 0px 0px 5px rgb(251, 106, 70),
+        0px 0px 7px rgb(248, 160, 138),
+        0px 0px 10px rgb(247, 207, 197);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.visible {
+    display: none;
+}
+
+.score {
+    width: 80px;
+    height: 40px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    opacity: .8;
+    text-align: center;
+    line-height: 40px;
+    font-size: 40px;
+    color: white;
+}
+
+.timer {
+    width: 80px;
+    height: 40px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    opacity: .8;
+    text-align: center;
+    line-height: 40px;
+    font-size: 40px;
+    color: white;
+}
+
+.gameover {
+    width: 300px;
+    height: 40px;
+    position: absolute;
+    bottom: 250px;
+    left: 200px;
+    font-size: 40px;
+    text-align: center;
+    color: white;
+}
+
+.buton {
+    width: 100px;
+    height: 26px;
+    border-radius: 5px;
+    border: none;
+    position: absolute;
+    bottom: 200px;
+    left: 300px;
+    font-weight: bold;
+}
+
+.buton:hover {
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+.start {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    position: absolute;
+    bottom: 235px;
+    left: 300px;
+    font-weight: bold
+}
