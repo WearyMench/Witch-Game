@@ -1,18 +1,36 @@
+/**
+ * TO DO
+ *
+ * Eliminar los divs de las esferas una vez salgan del escenario.
+ * Ajustar bien la colision entre las esferas rojas y el player.
+ * Ajustar el puntaje ganado al tocar una esfera.
+ * limpiar el codigo
+ */
+
 let playerLeft = 350;
 let playerBottom = 30;
 let ballClass = ["small", "medium", "big"];
 let ballHeight = 500;
+let batleft;
 let interval1;
 let interval2;
+let interval3;
+let interval4;
 let int;
+let out1;
+let out2;
 let count = 0;
 let counter = 0;
-let seconds = 10;
+let seconds = 20;
+let monsterLeft = 600;
+let bats = [];
+let Over = false;
 
 const grid = document.querySelector(".grid");
 const player = document.createElement("div");
 const score = document.createElement("div");
 const timer = document.createElement("div");
+const monster = document.createElement("div");
 let textGameOver = document.createElement("div");
 
 function createPlayer() {
@@ -37,7 +55,8 @@ class Ball {
       ballHeight -= 4;
       visual.style.bottom = ballHeight + "px";
       if (ballHeight <= 0) {
-        grid.removeChild(visual);
+        ballHeight = 0;
+        visual.classList.add("visible");
       }
     }, 30);
 
@@ -132,9 +151,9 @@ function createScore() {
   score.classList.add("score");
   setInterval(() => {
     if (counter < 10) {
-      score.textContent = "0" + counter;
+      score.textContent = `0${counter}/100`;
     } else {
-      score.innerHTML = counter;
+      score.innerHTML = `${counter}/100`;
     }
   }, 30);
   grid.appendChild(score);
@@ -159,24 +178,131 @@ function createTimer() {
   grid.appendChild(timer);
 }
 
+const loseAnimation = () => {
+  grid.appendChild(monster);
+  monster.classList.remove("visible");
+  monster.classList.remove("monsterDead");
+  monster.classList.remove("monster-atack");
+  monster.classList.remove("monsterIdle");
+  monster.classList.add("monster-run");
+
+  interval4 = setInterval(() => {
+    if (playerLeft > 260) playerLeft -= 5;
+    else if (playerLeft < 260) playerLeft += 5;
+
+    player.style.left = playerLeft + "px";
+
+    if (monsterLeft > 300) {
+      monsterLeft -= 5;
+      monster.style.left = monsterLeft + "px";
+      player.classList.add("charge");
+    }
+
+    if (monsterLeft === 300) {
+      monster.classList.add("monster-atack");
+      monster.classList.remove("monster-run");
+      player.classList.remove("charge");
+      player.classList.add("damage");
+      out1 = setTimeout(() => {
+        monster.classList.remove("monster-atack");
+        monster.classList.add("monsterIdle");
+        player.classList.add("dead");
+        player.classList.remove("damage");
+        out2 = setTimeout(() => {
+          player.classList.add("visible");
+          player.classList.remove("dead");
+          clearInterval(interval4);
+        }, 600);
+      }, 1800);
+    }
+  }, 30);
+
+  monster.style.top = 290 + "px";
+};
+
+const winAnimation = () => {
+  grid.appendChild(monster);
+  monster.classList.add("monster-run");
+  monster.classList.remove("monsterDead");
+  monster.classList.remove("monsterIdle");
+  monster.classList.remove("visible");
+
+  interval4 = setInterval(() => {
+    if (playerLeft > 260) playerLeft -= 5;
+    else if (playerLeft < 260) playerLeft += 5;
+
+    player.classList.remove("player-left");
+    player.style.left = playerLeft + "px";
+
+    if (monsterLeft > 300) {
+      monsterLeft -= 5;
+      monster.style.left = monsterLeft + "px";
+      player.classList.add("charge");
+    }
+
+    if (monsterLeft === 300) {
+      monster.classList.remove("monster-run");
+      monster.classList.add("takeHit");
+      player.classList.remove("charge");
+      player.classList.add("atack");
+      out1 = setTimeout(() => {
+        monster.classList.remove("takeHit");
+        player.classList.remove("atack");
+        monster.classList.add("monsterDead");
+        out2 = setTimeout(() => {
+          monster.classList.add("visible");
+        }, 900);
+      }, 2000);
+      clearInterval(interval4);
+    }
+  }, 30);
+
+  monster.style.top = 290 + "px";
+};
+
 function gameOver() {
   clearInterval(int);
-  grid.removeChild(player);
+  clearInterval(interval3);
+  Over = true;
 
   textGameOver.classList.add("gameover");
-  textGameOver.textContent = "Game Over";
+  if (counter < 100) {
+    textGameOver.textContent = "Time is Over";
+    loseAnimation();
+  } else {
+    textGameOver.textContent = "Well done";
+    winAnimation();
+  }
   grid.appendChild(textGameOver);
 
   let buton1 = document.createElement("button");
   buton1.classList.add("buton");
   buton1.textContent = "Play Again";
-  grid.appendChild(buton1);
+  setTimeout(() => {
+    grid.appendChild(buton1);
+  }, 6000);
+
+  let coo = setInterval(() => {
+    if (counter > 0 && player.classList[1] === "charge") {
+      counter--;
+    }
+  }, 8);
 
   buton1.addEventListener("click", () => {
     grid.removeChild(textGameOver);
     grid.removeChild(buton1);
-    seconds = 10;
+    clearInterval(interval4);
+    clearInterval(coo);
+    clearTimeout(out1);
+    clearTimeout(out2);
+    monster.classList.remove("monsterIdle");
+    grid.removeChild(monster);
+    player.classList.remove("visible");
+    player.classList.remove("charge");
+    monsterLeft = 600;
+    seconds = 20;
     counter = 0;
+    Over = false;
     start();
   });
 }

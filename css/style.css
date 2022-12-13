@@ -1,10 +1,11 @@
 body {
-    background-color: rgb(74, 132, 132);
+    background-color: rgb(88, 82, 90);
 }
 
 h1 {
     text-align: center;
-    text-shadow: 0 0 1px black;
+    color: white;
+    text-shadow: 0 0 1px rgb(0, 0, 0);
 }
 
 .grid {
@@ -15,7 +16,7 @@ h1 {
     margin: auto;
     position: relative;
     box-shadow: 0 0 5px rgb(105, 62, 117);
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .player {
@@ -53,6 +54,53 @@ h1 {
 @keyframes run {
     to {
         background-position: 0 384px;
+    }
+}
+
+.damage {
+    background-image: url(../img/B_witch_take_damage.png);
+    animation: damage 600ms steps(3) infinite;
+}
+
+@keyframes damage {
+    to {
+        background-position: 0 144px;
+    }
+}
+
+.dead {
+    background-image: url(../img/B_witch_death_copyUp.png);
+    animation: dead 600ms steps(5) infinite;
+}
+
+@keyframes dead {
+    to {
+        background-position: 0 240px;
+    }
+}
+
+.charge {
+    width: 48px;
+    background-image: url(../img/B_witch_charge.png);
+    animation: charge 1.5s steps(5) infinite;
+}
+
+@keyframes charge {
+    to {
+        background-position: 0 240px;
+    }
+}
+
+.atack {
+    width: 104px;
+    height: 46px;
+    background-image: url(../img/B_witch_attack.png);
+    animation: atack 1s steps(9) infinite;
+}
+
+@keyframes atack {
+    to {
+        background-position: 0 414px;
     }
 }
 
@@ -98,7 +146,7 @@ h1 {
     height: 40px;
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 70px;
     opacity: .8;
     text-align: center;
     line-height: 40px;
@@ -155,4 +203,84 @@ h1 {
     bottom: 235px;
     left: 300px;
     font-weight: bold
+}
+
+.monster-run {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-image: url(../img/Run.png);
+    animation: monsterRun 800ms steps(8) infinite;
+    transform: scale(-1.5, 1.5);
+    image-rendering: pixelated;
+}
+
+@keyframes monsterRun {
+    to {
+        background-position: 2000px;
+    }
+}
+
+.monster-atack {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-image: url(../img/Attack1.png);
+    animation: monsterAtack 600ms steps(8) infinite;
+    transform: scale(-1.5, 1.5);
+    image-rendering: pixelated;
+}
+
+@keyframes monsterAtack {
+    to {
+        background-position: 2000px;
+    }
+}
+
+.monsterIdle {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-image: url(../img/Idle.png);
+    animation: monsterIdle 800ms steps(8) infinite;
+    transform: scale(-1.5, 1.5);
+    image-rendering: pixelated;
+}
+
+@keyframes monsterIdle {
+    to {
+        background-position: 2000px;
+    }
+}
+
+.takeHit {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-image: url(../img/Take\ hit.png);
+    animation: takeHit 1s steps(3) infinite;
+    transform: scale(-1.5, 1.5);
+    image-rendering: pixelated;
+}
+
+@keyframes takeHit {
+    to {
+        background-position: 750px;
+    }
+}
+
+.monsterDead {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-image: url(../img/Death.png);
+    animation: monsterDead 3s steps(7);
+    transform: scale(-1.5, 1.5);
+    image-rendering: pixelated;
+}
+
+@keyframes monsterDead {
+    to {
+        background-position: 1750px;
+    }
 }
