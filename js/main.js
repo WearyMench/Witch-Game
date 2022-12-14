@@ -1,10 +1,9 @@
 /**
  * TO DO
  *
- * Eliminar los divs de las esferas una vez salgan del escenario.
- * Ajustar bien la colision entre las esferas rojas y el player.
- * Ajustar el puntaje ganado al tocar una esfera.
- * limpiar el codigo
+ * remove divs of balls < 0
+ * score
+ * clean
  */
 
 let playerLeft = 350;
@@ -141,35 +140,48 @@ function teclas() {
   buttonright.classList.add("buttonRight");
   buttonleft.textContent = "<";
   buttonright.textContent = ">";
-  grid.appendChild(buttonleft);
-  grid.appendChild(buttonright);
+  let inter1;
+  let inter2;
 
-  buttonleft.addEventListener("mousedown", () => {
-    playerLeft = playerLeft - 10;
-    player.classList.add("run");
-    player.classList.add("run-left");
-    player.style.left = playerLeft + "px";
+  const mql = matchMedia("(max-width: 700px)");
+  mql.addEventListener("change", (e) => {
+    if (e.matches) {
+      grid.appendChild(buttonleft);
+      grid.appendChild(buttonright);
+    } else {
+      grid.removeChild(buttonleft);
+      grid.removeChild(buttonright);
+    }
   });
-  buttonright.addEventListener("mousedown", () => {
-    playerLeft = playerLeft + 10;
-    player.classList.add("run");
-    player.classList.remove("player-left");
-    player.style.left = playerLeft + "px";
+
+  buttonleft.addEventListener("touchstart", () => {
+    inter1 = setInterval(() => {
+      playerLeft = playerLeft - 10;
+      player.classList.add("run");
+      player.classList.add("run-left");
+      player.style.left = playerLeft + "px";
+    }, 40);
   });
-  buttonleft.addEventListener("mouseleave", () => {
+  buttonright.addEventListener("touchstart", () => {
+    inter2 = setInterval(() => {
+      playerLeft = playerLeft + 10;
+      player.classList.add("run");
+      player.classList.remove("player-left");
+      player.style.left = playerLeft + "px";
+    }, 40);
+  });
+  buttonleft.addEventListener("touchend", () => {
+    clearInterval(inter1);
     player.classList.remove("run");
     player.classList.remove("run-left");
     player.classList.add("player-left");
-    player.style.left = playerLeft + "px";
   });
-  buttonright.addEventListener("mouseleave", () => {
+  buttonright.addEventListener("touchend", () => {
+    clearInterval(inter2);
     player.classList.remove("run");
     player.classList.remove("player-left");
-    player.style.left = playerLeft + "px";
   });
 }
-
-addEventListener("mouseleave", () => console.log("vro"));
 
 function contador(clase) {
   if (clase == "small") {
@@ -297,7 +309,6 @@ const winAnimation = () => {
 function gameOver() {
   clearInterval(int);
   clearInterval(interval3);
-  Over = true;
 
   textGameOver.classList.add("gameover");
   if (counter < 100) {
