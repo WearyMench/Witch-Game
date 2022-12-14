@@ -11,7 +11,6 @@ let playerLeft = 350;
 let playerBottom = 30;
 let ballClass = ["small", "medium", "big"];
 let ballHeight = 500;
-let batleft;
 let interval1;
 let interval2;
 let interval3;
@@ -23,8 +22,6 @@ let count = 0;
 let counter = 0;
 let seconds = 20;
 let monsterLeft = 600;
-let bats = [];
-let Over = false;
 
 const grid = document.querySelector(".grid");
 const player = document.createElement("div");
@@ -136,6 +133,43 @@ addEventListener("keyup", (e) => {
       break;
   }
 });
+
+function teclas() {
+  const buttonleft = document.createElement("button");
+  const buttonright = document.createElement("button");
+  buttonleft.classList.add("buttonLeft");
+  buttonright.classList.add("buttonRight");
+  buttonleft.textContent = "<";
+  buttonright.textContent = ">";
+  grid.appendChild(buttonleft);
+  grid.appendChild(buttonright);
+
+  buttonleft.addEventListener("mousedown", () => {
+    playerLeft = playerLeft - 10;
+    player.classList.add("run");
+    player.classList.add("run-left");
+    player.style.left = playerLeft + "px";
+  });
+  buttonright.addEventListener("mousedown", () => {
+    playerLeft = playerLeft + 10;
+    player.classList.add("run");
+    player.classList.remove("player-left");
+    player.style.left = playerLeft + "px";
+  });
+  buttonleft.addEventListener("mouseleave", () => {
+    player.classList.remove("run");
+    player.classList.remove("run-left");
+    player.classList.add("player-left");
+    player.style.left = playerLeft + "px";
+  });
+  buttonright.addEventListener("mouseleave", () => {
+    player.classList.remove("run");
+    player.classList.remove("player-left");
+    player.style.left = playerLeft + "px";
+  });
+}
+
+addEventListener("mouseleave", () => console.log("vro"));
 
 function contador(clase) {
   if (clase == "small") {
@@ -312,6 +346,7 @@ function start() {
   createBalls();
   createScore();
   createTimer();
+  teclas();
 }
 
 function inicio() {

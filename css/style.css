@@ -284,3 +284,35 @@ h1 {
         background-position: 1750px;
     }
 }
+
+.buttonLeft,
+.buttonRight {
+    display: none;
+    width: 80px;
+    height: 60px;
+    border-radius: 5px;
+    border: none;
+    position: absolute;
+    bottom: 200px;
+    left: 20px;
+    opacity: 0.4;
+    font-size: 40px;
+    color: rgb(164, 156, 156);
+}
+
+.buttonRight {
+    left: 600px;
+}
+
+
+@media (max-width: 700px) {
+    h1 {
+        margin: 40px;
+        text-align: left;
+    }
+
+    .buttonLeft,
+    .buttonRight {
+        display: block;
+    }
+}
