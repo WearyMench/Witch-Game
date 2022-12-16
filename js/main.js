@@ -1,8 +1,8 @@
 /**
  * TO DO
  *
- * remove divs of balls < 0
- * score
+ * remove divs of balls with ballHeight < 0
+ * fix score
  * clean
  */
 
@@ -132,56 +132,6 @@ addEventListener("keyup", (e) => {
       break;
   }
 });
-
-function teclas() {
-  const buttonleft = document.createElement("button");
-  const buttonright = document.createElement("button");
-  buttonleft.classList.add("buttonLeft");
-  buttonright.classList.add("buttonRight");
-  buttonleft.textContent = "<";
-  buttonright.textContent = ">";
-  let inter1;
-  let inter2;
-
-  const mql = matchMedia("(max-width: 700px)");
-  mql.addEventListener("change", (e) => {
-    if (e.matches) {
-      grid.appendChild(buttonleft);
-      grid.appendChild(buttonright);
-    } else {
-      grid.removeChild(buttonleft);
-      grid.removeChild(buttonright);
-    }
-  });
-
-  buttonleft.addEventListener("touchstart", () => {
-    inter1 = setInterval(() => {
-      playerLeft = playerLeft - 10;
-      player.classList.add("run");
-      player.classList.add("run-left");
-      player.style.left = playerLeft + "px";
-    }, 40);
-  });
-  buttonright.addEventListener("touchstart", () => {
-    inter2 = setInterval(() => {
-      playerLeft = playerLeft + 10;
-      player.classList.add("run");
-      player.classList.remove("player-left");
-      player.style.left = playerLeft + "px";
-    }, 40);
-  });
-  buttonleft.addEventListener("touchend", () => {
-    clearInterval(inter1);
-    player.classList.remove("run");
-    player.classList.remove("run-left");
-    player.classList.add("player-left");
-  });
-  buttonright.addEventListener("touchend", () => {
-    clearInterval(inter2);
-    player.classList.remove("run");
-    player.classList.remove("player-left");
-  });
-}
 
 function contador(clase) {
   if (clase == "small") {
@@ -357,7 +307,6 @@ function start() {
   createBalls();
   createScore();
   createTimer();
-  teclas();
 }
 
 function inicio() {
