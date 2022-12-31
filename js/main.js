@@ -1,4 +1,10 @@
 /**
+ *
+ * The game consists of a character who moves from side to side to collect the shiny balls that fall from the sky.
+ * There are three types of balls that give different power values.
+ * When the time is up if the character has not got enough magic, the loss animation is shown.
+ * If enough magic is achieved then the victory animation is shown.
+ *
  * TO DO
  *
  * remove divs of balls with ballHeight < 0
@@ -10,11 +16,8 @@ let playerLeft = 350;
 let playerBottom = 30;
 let ballClass = ["small", "medium", "big"];
 let ballHeight = 500;
-let interval1;
-let interval2;
-let interval3;
-let interval4;
-let int;
+let AnimationInterval;
+let createBallInterval;
 let out1;
 let out2;
 let count = 0;
@@ -47,7 +50,7 @@ class Ball {
     visual.style.left = this.left + "px";
 
     //Movement and collisions
-    interval1 = setInterval(() => {
+    setInterval(() => {
       ballHeight -= 4;
       visual.style.bottom = ballHeight + "px";
       if (ballHeight <= 0) {
@@ -56,7 +59,7 @@ class Ball {
       }
     }, 30);
 
-    interval2 = setInterval(() => {
+    setInterval(() => {
       if (
         ballHeight <= playerBottom + 50 &&
         ballHeight >= playerBottom &&
@@ -75,7 +78,7 @@ class Ball {
 
 function createBalls() {
   new Ball(ballHeight);
-  int = setInterval(() => {
+  createBallInterval = setInterval(() => {
     new Ball(ballHeight);
   }, 3000);
 }
@@ -182,7 +185,7 @@ const loseAnimation = () => {
   monster.classList.remove("monsterIdle");
   monster.classList.add("monster-run");
 
-  interval4 = setInterval(() => {
+  AnimationInterval = setInterval(() => {
     if (playerLeft > 260) playerLeft -= 5;
     else if (playerLeft < 260) playerLeft += 5;
 
@@ -207,7 +210,7 @@ const loseAnimation = () => {
         out2 = setTimeout(() => {
           player.classList.add("visible");
           player.classList.remove("dead");
-          clearInterval(interval4);
+          clearInterval(AnimationInterval);
         }, 600);
       }, 1800);
     }
@@ -223,7 +226,7 @@ const winAnimation = () => {
   monster.classList.remove("monsterIdle");
   monster.classList.remove("visible");
 
-  interval4 = setInterval(() => {
+  AnimationInterval = setInterval(() => {
     if (playerLeft > 260) playerLeft -= 5;
     else if (playerLeft < 260) playerLeft += 5;
 
@@ -249,7 +252,7 @@ const winAnimation = () => {
           monster.classList.add("visible");
         }, 900);
       }, 2000);
-      clearInterval(interval4);
+      clearInterval(AnimationInterval);
     }
   }, 30);
 
@@ -257,8 +260,7 @@ const winAnimation = () => {
 };
 
 function gameOver() {
-  clearInterval(int);
-  clearInterval(interval3);
+  clearInterval(createBallInterval);
 
   textGameOver.classList.add("gameover");
   if (counter < 100) {
@@ -270,24 +272,24 @@ function gameOver() {
   }
   grid.appendChild(textGameOver);
 
-  let buton1 = document.createElement("button");
-  buton1.classList.add("buton");
-  buton1.textContent = "Play Again";
+  let buttonPlayAgain = document.createElement("button");
+  buttonPlayAgain.classList.add("buton");
+  buttonPlayAgain.textContent = "Play Again";
   setTimeout(() => {
-    grid.appendChild(buton1);
+    grid.appendChild(buttonPlayAgain);
   }, 6000);
 
-  let coo = setInterval(() => {
+  let counterInterval = setInterval(() => {
     if (counter > 0 && player.classList[1] === "charge") {
       counter--;
     }
   }, 8);
 
-  buton1.addEventListener("click", () => {
+  buttonPlayAgain.addEventListener("click", () => {
     grid.removeChild(textGameOver);
-    grid.removeChild(buton1);
-    clearInterval(interval4);
-    clearInterval(coo);
+    grid.removeChild(buttonPlayAgain);
+    clearInterval(AnimationInterval);
+    clearInterval(counterInterval);
     clearTimeout(out1);
     clearTimeout(out2);
     monster.classList.remove("monsterIdle");
@@ -297,7 +299,6 @@ function gameOver() {
     monsterLeft = 600;
     seconds = 20;
     counter = 0;
-    Over = false;
     start();
   });
 }
@@ -310,14 +311,14 @@ function start() {
 }
 
 function inicio() {
-  let buton2 = document.createElement("button");
-  buton2.classList.add("start");
-  buton2.textContent = "Start";
-  grid.appendChild(buton2);
+  let buttonStart = document.createElement("button");
+  buttonStart.classList.add("start");
+  buttonStart.textContent = "Start";
+  grid.appendChild(buttonStart);
 
-  buton2.addEventListener("click", () => {
+  buttonStart.addEventListener("click", () => {
     start();
-    grid.removeChild(buton2);
+    grid.removeChild(buttonStart);
   });
 }
 
