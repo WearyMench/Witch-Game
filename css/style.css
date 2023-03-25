@@ -1,11 +1,21 @@
 body {
-    background-color: rgb(88, 82, 90);
+    /* background-color: rgb(88, 82, 90); */
+    background: url(../img/body-back.jpg);
+    background-size: cover;
 }
 
 h1 {
+    font-family: 'Delicious Handrawn', cursive;
     text-align: center;
     color: white;
     text-shadow: 0 0 1px rgb(0, 0, 0);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .grid {
@@ -13,9 +23,9 @@ h1 {
     background-size: cover;
     width: 700px;
     height: 500px;
-    margin: auto;
+    /* margin: auto; */
     position: relative;
-    box-shadow: 0 0 5px rgb(105, 62, 117);
+    box-shadow: 0 0 15px rgb(105, 62, 117);
     overflow: hidden;
 }
 
@@ -303,10 +313,37 @@ h1 {
     left: 600px;
 }
 
+.responsive {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    font-size: 30px;
+    color: white;
+    font-family: 'Delicious Handrawn', cursive;
+    text-align: center;
+}
+
+@media screen and (max-width: 1150px) {
+    .container {
+        gap: 30px;
+    }
+
+    .grid {
+        order: 1;
+    }
+}
 
 @media (max-width: 700px) {
-    h1 {
-        margin: 40px;
-        text-align: left;
+    body {
+        background-image: url(../img/fondo-cel.png);
+        background-size: cover;
+    }
+
+    .grid {
+        display: none;
+    }
+
+    .responsive {
+        display: block;
     }
 }

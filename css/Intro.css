@@ -1,0 +1,50 @@
+.intro {
+    width: 200px;
+    align-self: center;
+}
+
+.text-box {
+    height: 100px;
+    background-color: beige;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.ghost {
+    width: 44px;
+    height: 30px;
+    transform: scale(2);
+    image-rendering: pixelated;
+    background-image: url(../img/Idle\ \(44x30\).png);
+    background-position: 0 0px;
+    position: absolute;
+    animation: moveGhost 1s steps(10) infinite;
+}
+
+.left {
+    scale: 2;
+    transform: scaleX(-1);
+}
+
+@keyframes moveGhost {
+    to {
+        background-position: 440px 0;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+
+    .intro:first-child,
+    .intro:last-child {
+        order: 2;
+    }
+}
+
+@media (max-width: 700px) {
+    .intro {
+        display: none;
+    }
+}
